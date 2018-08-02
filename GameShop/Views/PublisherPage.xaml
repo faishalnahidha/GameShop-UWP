@@ -1,0 +1,63 @@
+﻿<Page
+    x:Class="GameShop.Views.PublisherPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:controls="using:MyToolkit.Controls"
+    mc:Ignorable="d">
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <StackPanel x:Name="FormPanel" HorizontalAlignment="Left" VerticalAlignment="Top" Padding="24,24,24,24">
+            <TextBox x:Name="PublisherIdTextBox" VerticalAlignment="Top" Width="400" HorizontalAlignment="Left" Header="Publisher ID" MaxLength="32" InputScope="Number"/>
+            <TextBox x:Name="NameTextBox" Margin="0,24,0,0" Header="Name" MaxLength="32" InputScope="Text" PlaceholderText=""/>
+            <TextBox x:Name="CountryTextBox" Margin="0,24,0,0" Header="Country" MaxLength="32" InputScope="Text" PlaceholderText=""/>
+            <StackPanel Margin="0,24,0,0" Orientation="Horizontal">
+                <Button x:Name="AddButton" Content="Add" Click="AddButton_Click" Style="{ThemeResource AccentButtonStyle}"/>
+                <Button x:Name="EditButton" Content="Edit" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="24,0,0,0" Click="EditButton_Click"
+                        Style="{ThemeResource AccentButtonStyle}"/>
+                <Button x:Name="DeleteButton" Content="Delete" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="24,0,0,0" Click="DeleteButton_Click"
+                        Style="{ThemeResource AccentButtonStyle}"/>
+            </StackPanel>
+        </StackPanel>
+        <controls:DataGrid ItemsSource="{x:Bind publishers}" x:Name="DataGrid" Grid.Row="1" Margin="24,0,24,8"
+                           SelectionMode="Multiple" DefaultOrderIndex="0"
+                           SelectedItem="{Binding Publisher, Mode=TwoWay}"
+                           SelectionChanged="DataGrid_OnSelectionChanged">
+            <controls:DataGrid.HeaderBackground>
+                <SolidColorBrush Color="{ThemeResource SystemAltMediumLowColor}"/>
+            </controls:DataGrid.HeaderBackground>
+            <controls:DataGrid.Columns>
+                <controls:DataGridTextColumn Width="50" Binding="{Binding PublisherId}" IsAscendingDefault="True" >
+                    <controls:DataGridTextColumn.Header>
+                        <TextBlock Text="ID" Foreground="{ThemeResource SystemControlForegroundAccentBrush}"/>
+                    </controls:DataGridTextColumn.Header>
+                </controls:DataGridTextColumn>
+                <controls:DataGridTextColumn Width="300" Binding="{Binding Name}">
+                    <controls:DataGridTextColumn.Header>
+                        <TextBlock Text="Name" Foreground="{ThemeResource SystemControlForegroundAccentBrush}" />
+                    </controls:DataGridTextColumn.Header>
+                </controls:DataGridTextColumn>
+                <controls:DataGridTextColumn Width="200" Binding="{Binding Country}" >
+                    <controls:DataGridTextColumn.Header>
+                        <TextBlock Text="Country" Foreground="{ThemeResource SystemControlForegroundAccentBrush}" />
+                    </controls:DataGridTextColumn.Header>
+                </controls:DataGridTextColumn>
+            </controls:DataGrid.Columns>
+            <controls:DataGrid.ItemDetailsTemplate>
+                <DataTemplate>
+                    <StackPanel Margin="12" >
+                        <TextBlock Text="Details: " FontWeight="Bold" />
+                        <TextBlock Text="{Binding PublisherId}"/>
+                        <TextBlock Text="{Binding Name}" />
+                        <TextBlock Text="{Binding Country}" />
+                    </StackPanel>
+                </DataTemplate>
+            </controls:DataGrid.ItemDetailsTemplate>
+        </controls:DataGrid>
+    </Grid>
+</Page>

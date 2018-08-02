@@ -1,0 +1,55 @@
+﻿<Page
+    x:Class="GameShop.Views.NewOrderPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:GameShop.Views"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d">
+
+    <Grid>
+        <StackPanel x:Name="FormPanel" HorizontalAlignment="Left" VerticalAlignment="Top" Padding="24,24,24,24">
+            <TextBox x:Name="OrderIdTextBox" VerticalAlignment="Top" Width="400" HorizontalAlignment="Left" Header="Order ID" MaxLength="32" InputScope="Number" IsReadOnly="True" Background="#11000000" BorderBrush="#33000000" FontFamily="Segoe UI" AllowFocusOnInteraction="False" FocusVisualSecondaryBrush="#33000000"/>
+            <TextBlock x:Name="AddGameItemHeader" HorizontalAlignment="Left" Text="Order List" TextWrapping="Wrap" VerticalAlignment="Top" Margin="0,24,0,0" Style="{ThemeResource BodyTextBlockStyle}" Foreground="Black"/>
+            <RelativePanel Margin="0,4,0,0">
+                <ComboBox x:Name="GameItemComboBox" Height="32" VerticalAlignment="Top" Width="348" Margin="0,4,0,0"
+                          ItemsSource="{x:Bind games}" DisplayMemberPath="ToString2" />
+                <Button x:Name="AddGameItemButton" Height="40" Margin="12,0,0,0" RelativePanel.RightOf="GameItemComboBox" VerticalAlignment="Top" Click="AddGameItemButton_Click"
+                        Style="{ThemeResource AccentButtonStyle}">
+                    <FontIcon Glyph="&#xE710;" Height="20" VerticalAlignment="Top" />
+                </Button>
+            </RelativePanel>
+            <ListView x:Name="GameItemListView" VerticalAlignment="Stretch" HorizontalAlignment="Left" Height="150" Background="#11000000" Margin="0,12,0,0" Width="400"
+                      ItemsSource="{x:Bind newOrder.OrderItems}">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="270"/>
+                                <ColumnDefinition Width="20"/>
+                                <ColumnDefinition Width="80"/>
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Text="{Binding ToString2}" HorizontalAlignment="Left"/>
+                            <TextBlock Grid.Column="1" Text="Rp" HorizontalAlignment="Right"/>
+                            <TextBlock Grid.Column="2" Text="{Binding Price}" HorizontalAlignment="Right" />
+                        </Grid>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+            <RelativePanel Margin="0,24,0,0">
+                <TextBox x:Name="TotalItemTextBox" Width="126" Header="Total Item" PlaceholderText="" MaxLength="4" InputScope="Number" IsReadOnly="True" Background="#11000000" BorderBrush="#33000000" FocusVisualSecondaryBrush="#33000000" AllowFocusOnInteraction="False"/>
+                <TextBox x:Name="TotalPriceTextBox" MaxLength="9" RelativePanel.RightOf="TotalItemTextBox" Header="Total Price" Margin="24,0,0,0" Width="250" PlaceholderText="Rp" InputScope="CurrencyAmount" IsReadOnly="True" TextAlignment="Right" Background="#11000000" BorderBrush="#33000000" FocusVisualSecondaryBrush="#33000000" AllowFocusOnInteraction="False"/>
+            </RelativePanel>
+            <RelativePanel Margin="0,24,0,0">
+                <TextBox x:Name="CashTextBox" Width="250" Header="Cash" PlaceholderText="Rp" MaxLength="9" InputScope="CurrencyAmount" HorizontalAlignment="Left" Margin="150,0,0,0" TextAlignment="Right"/>
+            </RelativePanel>
+            <StackPanel Margin="0,24,0,0" Orientation="Horizontal">
+                <Button x:Name="OrderButton" Content="Add Order" Click="OrderButton_Click" Margin="150,0,0,0"
+                        Style="{ThemeResource AccentButtonStyle}"/>
+                <Button x:Name="CancelButton" Content="Cancel" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="24,0,0,0" Click="CancelButton_Click"
+                        Style="{ThemeResource AccentButtonStyle}"/>
+            </StackPanel>
+        </StackPanel>
+
+    </Grid>
+</Page>
